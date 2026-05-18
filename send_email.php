@@ -1,24 +1,27 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Output debugging info
     error_log("Form submitted");
 
-    $fullname = htmlspecialchars($_POST['fullname']);
+    $fullname = htmlspecialchars($_POST['name']);
     $email = htmlspecialchars($_POST['email']);
     $message = htmlspecialchars($_POST['message']);
 
-    // Your existing email sending logic...
-    $to = "123@gmail.com";
-    $subject = "New Contact Form Submission";
-    $body = "Full Name: $fullname\nEmail: $email\nMessage: $message";
-    $headers = "From: $email";
+    $to = "yasharthbajpai@outlook.in";
+    $subject = "New Contact Form Submission from Portfolio";
+    $body = "Full Name: $fullname\nEmail: $email\n\nMessage:\n$message";
+    $headers = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
 
     if (mail($to, $subject, $body, $headers)) {
-        echo "Message sent successfully!";
+        // Redirect back to portfolio with success
+        header("Location: index.html?status=success");
+        exit();
     } else {
-        echo "Message could not be sent.";
+        header("Location: index.html?status=error");
+        exit();
     }
 } else {
     echo "Invalid request method.";
 }
 ?>
+₹
